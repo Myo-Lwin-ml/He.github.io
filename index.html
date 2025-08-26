@@ -1,140 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>I Do Love You ❤️</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>I love you ❤️</title>
+  <meta name="description" content="A tiny, romantic single‑file webapp to say ‘I love you’." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Zeyada&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('Bro5.jpg') center/cover no-repeat;
-      color: white;
-      text-align: center;
-      overflow: hidden;
+    :root{
+      --bg1:#ff7aa2; --bg2:#7aa6ff; --glass:rgba(255,255,255,.14); --white: #fff; --text:#1b1b1b;
+      --shadow: 0 20px 60px rgba(0,0,0,.25);
+      --radius: 28px;
     }
-    h1 {
-      font-size: 3em;
-      margin: 0.2em;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--white); font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+      background: linear-gradient(120deg,var(--bg1),var(--bg2));
+      background-size: 200% 200%;
+      animation: moveBg 16s ease-in-out infinite;
+      display:grid; place-items:center; padding:24px;
     }
-    #typewrite {
-      font-size: 2em;
-      margin-top: 0.5em;
-      white-space: pre;
-      min-height: 1.5em;
+    @keyframes moveBg { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+    .card{
+      width:min(760px, 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
+      backdrop-filter: blur(18px);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
     }
-    button {
-      margin-top: 1.5em;
-      padding: 0.8em 1.4em;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 12px;
-      background: #ff4d6d;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.2s;
+    header{
+      padding:26px 28px 10px; text-align:center;
     }
-    button:hover { transform: scale(1.05); }
-    dialog {
-      border: none;
-      border-radius: 14px;
-      padding: 1.5em;
-      text-align: center;
-      max-width: 80%;
+    .who{
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight:800; letter-spacing:.4px;
     }
-    canvas#confetti {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
+    .sig{
+      font-family: 'Zeyada', cursive;
+      font-size: clamp(22px, 3.2vw, 32px);
+      opacity:.95;
     }
+    .heart-wrap{ display:flex; justify-content:center; align-items:center; gap:18px; padding:8px 0 18px; }
+    .heart{ width:92px; height:92px; display:block; filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
+    .beat{ animation: beat 1.15s ease-in-out infinite; transform-origin:center; }
+    @keyframes beat{ 0%,100%{ transform:scale(1)} 25%{ transform:scale(1.08)} 50%{ transform:scale(.96)} 75%{ transform:scale(1.12)} }
+
+    main{ padding: 0 22px 22px; }
+    .type{
+      font-size: clamp(30px, 5.4vw, 54px);
+      font-weight:800;
+      text-align:center; min-height: 1.2em;
+      letter-spacing:.5px;
+      margin: 0 0 6px;
+      white-space:nowrap; overflow:hidden; border-right: 2px solid rgba(255,255,255,.75);
+    }
+    .sub{ text-align:center; opacity:.9; margin:0 0 18px; }
+
+    .letter{
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 20px; padding: 18px; line-height:1.65; font-size: clamp(16px, 2.2vw, 18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+    }
+
+    .actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; padding:18px; }
+    .btn{
+      background: var(--white); color:#111; font-weight:700; border:0; padding:12px 18px; border-radius: 100px; cursor:pointer; box-shadow: 0 8px 18px rgba(0,0,0,.18);
+      transition: transform .08s ease, filter .2s ease; text-decoration:none; display:inline-flex; align-items:center; gap:10px;
+    }
+    .btn:active{ transform: translateY(1px) }
+    .btn.ghost{ background:rgba(255,255,255,.16); color:#fff; border:1px solid rgba(255,255,255,.32); }
+
+    .reasons{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:12px; margin-top:16px; }
+    .reason{ background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.22); border-radius:16px; padding:14px; }
+
+    footer{ text-align:center; padding:12px 18px 22px; opacity:.9; font-size:14px }
+
+    /* Confetti canvas */
+    #confetti{ position:fixed; inset:0; pointer-events:none; }
+
+    /* Modal */
+    dialog{ border:0; padding:0; background:transparent; }
+    .modal{ width:min(680px,90vw); background: rgba(26,26,26,.8); color:white; border:1px solid rgba(255,255,255,.25); border-radius: 24px; padding:22px; }
+    .modal h3{ margin:0 0 8px; font-size: clamp(20px,3vw,26px); }
+
+    /* Small helper */
+    .muted{ opacity:.8 }
   </style>
 </head>
 <body>
-  <h1 id="headline">To MY BRO</h1>
-  <div id="typewrite"></div>
-  <p id="message"></p>
-  <p id="subtitle"></p>
-  <p id="signature"> David from me, always</p>
-
-  <button id="surpriseBtn">Open your surprise 🎉</button>
-  <button id="copyBtn">Share this with you 🔗</button>
+  <canvas id="confetti"></canvas>
+  <div class="card" role="main" aria-live="polite">
+    <header>
+      <div class="who" id="headline">To my Bro</div>
+      <div class="heart-wrap" aria-hidden="true">
+        <svg class="heart beat" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 54s-4.9-4.65-12.2-11.3C9.7 35.9 4 30.72 4 23.5 4 16.28 9.6 11 16.2 11c4.02 0 7.68 1.98 10 5.06C28.12 12.98 31.78 11 35.8 11 42.4 11 48 16.28 48 23.5c0 7.22-5.7 12.4-13.8 19.2C34.9 49.35 30 54 30 54z" fill="#ff3366"/>
+        </svg>
+      </div>
+      <p class="sig" id="signature">— from me, always</p>
+    </header>
+    <main>
+      <h1 class="type" id="typewrite" aria-label="I love you">I love you</h1>
+      <p class="sub" id="subtitle">You are my favorite notification.</p>
+      <section class="letter" id="letter">
+        <p id="message">Every day with you is my best day. I’m proud of you, grateful for you, and completely in love with you. If I could choose again, it would still be you — a thousand times over.</p>
+        <div class="reasons" id="reasons">
+          <div class="reason">Your smile makes everything softer.</div>
+          <div class="reason">You cheer for me when I forget to cheer for myself.</div>
+          <div class="reason">You’re kind, even on hard days.</div>
+          <div class="reason">You make ordinary moments feel special.</div>
+          <div class="reason">With you, I feel at home.</div>
+        </div>
+      </section>
+      <div class="actions">
+        <button class="btn" id="surpriseBtn" title="Launch confetti">Open your surprise 🎉</button>
+        <button class="btn ghost" id="copyBtn" title="Copy a shareable link">Share this with you 🔗</button>
+      </div>
+    </main>
+    <footer>
+      <span class="muted"><code>You are my Everything.</code></span>
+    </footer>
+  </div>
 
   <dialog id="dialog">
-    <h2>💖 I do love you 💖</h2>
-    <p>You mean the world to me.</p>
-    <button id="closeDialog">Close</button>
+    <div class="modal">
+      <h3>For you ❤️</h3>
+      <p class="muted">I wrote this just to remind you: you are loved, wanted, and chosen — always.</p>
+      <div class="actions" style="justify-content:flex-end">
+        <button class="btn ghost" id="closeDialog">Close</button>
+      </div>
+    </div>
   </dialog>
 
-  <canvas id="confetti"></canvas>
-
   <script>
+    // ——— Helpers ———
     const $ = (sel) => document.querySelector(sel);
     const params = new URLSearchParams(location.search);
-    const to = params.get('to') || 'ROWAN';
-    const from = params.get('from') || '';
+    const to = params.get('to') || 'my BRO';
+    const from = params.get('from') || 'David';
     const msg = params.get('msg');
     const subtitle = params.get('subtitle');
 
+    // Apply personalization
     $('#headline').textContent = `To ${to}`;
-    $('#signature').textContent = ` YOURS DAVID ${from}, always!`;
+    $('#signature').textContent = `Love from ${from}, always`;
     if (msg) $('#message').textContent = msg;
     if (subtitle) $('#subtitle').textContent = subtitle;
 
-    const prefix = 'I do love you, ';
-    const titles = ['My Babe', 'My Bro'];
+    // Typewriter effect for the big line
+    const line = `I love you, ${to}!`;
     const typeEl = $('#typewrite');
     typeEl.textContent = '';
-
-    const style = document.createElement('style');
-    style.textContent = `#typewrite.glow{ animation: pulse 1.6s ease-in-out infinite; } @keyframes pulse{0%{text-shadow:0 0 8px rgba(255,255,255,.08),0 0 20px rgba(255,64,129,.06)}50%{text-shadow:0 0 12px rgba(255,255,255,.14),0 0 32px rgba(255,64,129,.12)}100%{text-shadow:0 0 8px rgba(255,255,255,.08),0 0 20px rgba(255,64,129,.06)}}`;
-    document.head.appendChild(style);
-
-    let outerIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
-    const typingSpeed = 60;
-    const pauseAfter = 900;
-
-    function tick(){
-      const currentTitle = titles[outerIndex % titles.length];
-      if(!deleting){
-        const full = prefix + currentTitle;
-        charIndex++;
-        typeEl.textContent = full.slice(0, charIndex);
-        typeEl.classList.add('glow');
-        if(charIndex >= full.length){
-          setTimeout(()=>{ deleting = true; }, pauseAfter);
-        }
+    let i = 0; const speed = 65;
+    (function type(){
+      if(i <= line.length){
+        typeEl.textContent = line.slice(0, i);
+        i++; setTimeout(type, speed);
       } else {
-        const full = prefix + currentTitle;
-        charIndex--;
-        if(charIndex < prefix.length){
-          deleting = false;
-          outerIndex++;
-          charIndex = prefix.length;
-        }
-        typeEl.textContent = full.slice(0, charIndex);
-        if(charIndex === prefix.length) typeEl.classList.remove('glow');
+        typeEl.style.borderRightColor = 'transparent';
       }
-      const delay = deleting ? typingSpeed / 1.6 : typingSpeed;
-      setTimeout(tick, delay);
-    }
-    typeEl.textContent = prefix;
-    charIndex = prefix.length;
-    setTimeout(tick, 300);
+    })();
 
+    // Confetti (tiny, dependency‑free)
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
     let W, H; function resize(){ W=canvas.width=innerWidth; H=canvas.height=innerHeight; }
     window.addEventListener('resize', resize, {passive:true}); resize();
+
     const colors = ['#fff', '#ffe08a', '#ffd1dc', '#c3f0ff', '#baffc9'];
     function Confetto(){
       this.x = Math.random()*W; this.y = -10; this.size = 6+Math.random()*8;
@@ -142,15 +181,36 @@
       this.color = colors[(Math.random()*colors.length)|0];
       this.speed = 1.5 + Math.random()*2.5;
     }
-    Confetto.prototype.update = function(){ this.y += this.speed; this.tiltAngle += this.tiltSpeed; this.tilt = Math.sin(this.tiltAngle)*8; if(this.y > H+20) return false; return true; }
-    Confetto.prototype.draw = function(){ ctx.beginPath(); ctx.lineWidth = this.size; ctx.strokeStyle = this.color; ctx.moveTo(this.x + this.tilt + this.size/2, this.y); ctx.lineTo(this.x + this.tilt, this.y + this.size*2); ctx.stroke(); }
+    Confetto.prototype.update = function(){
+      this.y += this.speed; this.tiltAngle += this.tiltSpeed; this.tilt = Math.sin(this.tiltAngle)*8;
+      if(this.y > H+20) return false; return true;
+    }
+    Confetto.prototype.draw = function(){
+      ctx.beginPath(); ctx.lineWidth = this.size; ctx.strokeStyle = this.color;
+      ctx.moveTo(this.x + this.tilt + this.size/2, this.y);
+      ctx.lineTo(this.x + this.tilt, this.y + this.size*2);
+      ctx.stroke();
+    }
     let confetti = [];
-    function burst(n=140){ for(let i=0;i<n;i++){ confetti.push(new Confetto()); } cancelAnimationFrame(anim); animate(); setTimeout(()=> confetti = [], 5000); }
+    function burst(n=140){
+      for(let i=0;i<n;i++){ confetti.push(new Confetto()); }
+      cancelAnimationFrame(anim);
+      animate();
+      setTimeout(()=> confetti = [], 5000);
+    }
     let anim;
-    function animate(){ anim = requestAnimationFrame(animate); ctx.clearRect(0,0,W,H); confetti = confetti.filter(c => c.update()); confetti.forEach(c => c.draw()); }
+    function animate(){
+      anim = requestAnimationFrame(animate);
+      ctx.clearRect(0,0,W,H);
+      confetti = confetti.filter(c => c.update());
+      confetti.forEach(c => c.draw());
+    }
 
+    // Buttons
     $('#surpriseBtn').addEventListener('click', () => { burst(); $('#dialog').showModal(); });
     $('#closeDialog').addEventListener('click', () => $('#dialog').close());
+
+    // Share link that preserves params
     $('#copyBtn').addEventListener('click', async () => {
       const base = location.href.split('?')[0];
       const p = new URLSearchParams();
@@ -159,7 +219,9 @@
       try{ await navigator.clipboard.writeText(link); alert('Link copied! Paste it anywhere to share.'); }
       catch{ prompt('Copy this link:', link); }
     });
-    setTimeout(()=>$('#surpriseBtn').focus(), 700);
+
+    // Accessibility nicety: focus the surprise button after typewriter ends
+    setTimeout(()=>$('#surpriseBtn').focus(), line.length*speed + 400);
   </script>
 </body>
 </html>
